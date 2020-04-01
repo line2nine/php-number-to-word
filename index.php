@@ -11,7 +11,7 @@
 <?php
 function convertNumberToWords($number)
 {
-    $list_number = array(
+    $numberList = array(
         "0" => "zero",
         "1" => "one",
         "2" => "two",
@@ -45,21 +45,24 @@ function convertNumberToWords($number)
         "1000000" => "million",
         "1000000000" => "billion",
     );
+    if ($number > 1000000000){
+        return "out of ability";
+    }
     if ($number < 21) {
-        return $list_number[$number];
+        return $numberList[$number];
     } else if ($number < 100) {
         $tens = floor($number / 10) * 10;
         $units = $number % 10;
-        $value = $list_number[$tens];
+        $value = $numberList[$tens];
         if ($units) {
-            return $value . " " . $list_number[$units];
+            return $value . " " . $numberList[$units];
         } else {
-            return $list_number[$tens];
+            return $numberList[$tens];
         }
     } else if ($number < 1000) {
         $hundred = floor($number / 100);
         $remainder = $number % 100;
-        $value1 = $list_number[$hundred] . " " . $list_number["100"];
+        $value1 = $numberList[$hundred] . " " . $numberList["100"];
         if ($remainder) {
             return $value1 . " and " . convertNumberToWords($remainder);
         } else {
@@ -68,7 +71,7 @@ function convertNumberToWords($number)
     } else if ($number < 1000000) {
         $thousand = floor($number / 1000);
         $remainder = $number % 1000;
-        $value2 = convertNumberToWords($thousand) . " " . $list_number["1000"];
+        $value2 = convertNumberToWords($thousand) . " " . $numberList["1000"];
         if ($remainder) {
             return $value2 . " " . convertNumberToWords($remainder);
         } else {
