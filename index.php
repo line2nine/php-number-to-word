@@ -41,11 +41,9 @@ function convertNumberToWords($number)
         "80" => "Eighty",
         "90" => "Ninety",
         "100" => "Hundred",
-        "1000" => "Thousand",
-        "1000000" => "Million",
-        "1000000000" => "Billion",
+
     );
-    if ($number > 1000000000){
+    if ($number > 999) {
         return "out of ability";
     }
     if ($number < 21) {
@@ -68,24 +66,15 @@ function convertNumberToWords($number)
         } else {
             return $value1;
         }
-    } else if ($number < 1000000) {
-        $thousand = floor($number / 1000);
-        $remainder = $number % 1000;
-        $value2 = convertNumberToWords($thousand) . " " . $numberList["1000"];
-        if ($remainder) {
-            return $value2 . " " . convertNumberToWords($remainder);
-        } else {
-            return $value2;
-        }
     }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $number = $_POST['number'];
-    echo "Your number: " .$number;
-    echo  "<br>";
-    echo  "<br>";
-    echo "Can read by: " .convertNumberToWords($number);
+    echo "Your number: " . $number;
+    echo "<br>";
+    echo "<br>";
+    echo "Can read by: " . convertNumberToWords($number);
 }
 ?>
 </body>
